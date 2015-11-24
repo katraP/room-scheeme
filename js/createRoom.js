@@ -1,90 +1,86 @@
 /**
  * Created by Kateryna_Porkhun on 11/23/2015.
  */
-function createRoom(o){
-	var s = o.space;
-	var roomConf = o.room,
-		textConf = o.roomNumber;
+(function(o){
+	var parentObj = o;
+	o.CreateRoom = function(){};
+	o.CreateRoom.prototype.init = function(o){
 
-	//room config
-	var roomPath=roomConf.path,
-		roomHoverShadow=roomConf.style.hoverShadow,
-		roomFill = roomConf.style.fill,
-		stroke= roomConf.style.stroke,
-		hoverScale= roomConf.style.hoverScale,
-		hoverDuration = roomConf.style.hoverDuration,
-		hoverFill = roomConf.style.hoverFill,
-		hoverOpacity = roomConf.style.hoverOpacity;
+		// getting configuration
 
-	//roomNumber config
-	var textOffsetX = textConf.offsetX,
-		textOffsetY = textConf.offsetY,
-		number = textConf.text,
-		roomNumberStroke = textConf.style.stroke,
-		roomNumberSize = textConf.style.size;
+		var config = this.configure(o);
+		//defining room parts
 
-	var roomShadowBlock=s.path(roomPath),
-			room=s.path(roomPath),
-			shadow= s.filter(Snap.filter.shadow(0,0, 2, roomHoverShadow));
-	room.attr({
-		'fill': roomFill,
-		stroke:stroke,
-		cursor: 'pointer'
-	}).addClass('room');
-	roomShadowBlock.attr({
-		'fill': 'none',
-		stroke: stroke,
-		filter: shadow,
-		opacity: 0
-	}).addClass('shadowBlock');
+		this.room=config.s.path(config.roomPath)
+				.attr({
+					fill: config.roomFill,
+					stroke:config.stroke,
+					cursor: 'pointer'
+				}).addClass('room');
 
-	var roomNumber = s.text(textOffsetX,textOffsetY, number)
-			.attr({'fill':roomNumberStroke,
-				'font-size':roomNumberSize,
-				cursor: 'pointer'}
-	).addClass('roomNumber');
+		this.roomNumber = config.s.text(config.textOffsetX,config.textOffsetY, config.number)
+				.attr({fill:config.roomNumberStroke,
+					'font-size':config.roomNumberSize,
+					cursor: 'pointer'}
+		).addClass('roomNumber');
 
-	var roomGroup = s.selectAll('.room, .roomNumber, .shadowBlock');
+		//getting the group of room parts
+		this.group = config.s.group( this.room, this.roomNumber);
 
-	function getNewStyle(o){
+		//adding hover handler
+		this.roomHover(o.worker);
+	};
+
+	o.CreateRoom.prototype.getNewStyle = function(o){
 		o.obj.animate(o.styles, o.duration);
 	}
-	function roomHover(){
-		roomGroup.forEach(function(elem){
-			elem.hover(function(){
-				getNewStyle({
-					obj: roomGroup,
-					styles: {transform: 'scale('+hoverScale+')'},
-					duration: hoverDuration
+
+	o.CreateRoom.prototype.roomHover = function(o){
+		var self = this;
+		self.group.hover(function(){
+				self.getNewStyle({
+					obj: self.room,
+					styles: {fill: self.config.hoverFill},
+					duration: self.config.hoverDuration
 				});
-				getNewStyle({
-					obj: room,
-					styles: {fill: hoverFill},
-					duration: hoverDuration
-				});
-				getNewStyle({
-					obj: roomShadowBlock,
-					styles: {opacity: hoverOpacity},
-					duration: hoverDuration
-				});
+			self.getNewStyle({
+				obj: self.roomNumber,
+				styles: {fill: self.config.hoverRoomNumber},
+				duration: self.config.hoverDuration
+			});
+
+			parentObj.worker.clear();
+			parentObj.worker.init(o);
 			}, function(){
-				getNewStyle({
-					obj: roomGroup,
-					styles: {transform: 'scale(1)'},
-					duration: hoverDuration
+				self.getNewStyle({
+					obj: self.room,
+					styles: {fill: self.config.roomFill},
+					duration: self.config.hoverDuration
 				});
-				getNewStyle({
-					obj: room,
-					styles: {fill: roomFill},
-					duration: hoverDuration
-				});
-				getNewStyle({
-					obj: roomShadowBlock,
-					styles: {opacity: 0},
-					duration: hoverDuration
+				self.getNewStyle({
+					obj: self.roomNumber,
+					styles: {fill: self.config.roomNumberStroke},
+					duration: self.config.hoverDuration
 				});
 			})
-		});
 	}
-	roomHover();
-}
+	o.CreateRoom.prototype.configure = function(o) {
+		 this.config = {
+			 s : o.space,
+			 roomPath: o.room.path,
+			 roomFill : o.room.style.fill,
+			 stroke: o.room.style.stroke,
+			 hoverScale: o.room.style.hoverScale,
+			 hoverDuration : o.room.style.hoverDuration,
+			 hoverFill : o.room.style.hoverFill,
+			 hoverOpacity : o.room.style.hoverOpacity,
+			 textOffsetX : o.roomNumber.offsetX,
+			 textOffsetY : o.roomNumber.offsetY,
+			 number : o.roomNumber.text,
+			 roomNumberStroke : o.roomNumber.style.stroke,
+			 roomNumberSize : o.roomNumber.style.size,
+			 hoverRoomNumber: o.roomNumber.style.hoverFill
+		 }
+		return this.config;
+	}
+}(MAIN));
