@@ -15,12 +15,12 @@ gulp.task('stylus', function() {
 				browsers: ['last 5 versions'],
 				cascade: true
 			}))
-			.pipe( gulp.dest('./css') );
+			.pipe( gulp.dest('./public/css') );
 });
 
 // Clean
 gulp.task('clean', function(cb) {
-	del(['./css/*.css'], cb)
+	del(['./public/css/*.css'], cb)
 });
 
 

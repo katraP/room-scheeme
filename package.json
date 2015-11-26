@@ -1,10 +1,9 @@
 {
   "name": "room-scheeme",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +13,10 @@
     "gulp-stylus": "^2.1.0"
   },
   "dependencies": {
-    "del": "^2.1.0"
-  }
+    "body-parser": "^1.14.1",
+    "del": "^2.1.0",
+    "express": "^4.13.3",
+    "express-livereload": "0.0.24"
+  },
+  "description": ""
 }

@@ -1,12 +1,78 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Oswald');
 
+
+$text=#555;
+$elHover = #bababa;
+$elBorder=#cccccc;
 html, body
 	margin:0;
 	padding:0;
-.main-wrap
-	padding: 50px;
-	box-sizing: border-box;
-	background-color: #ebeef0;
+.main
+	&-wrap
+		padding: 50px;
+		box-sizing: border-box;
+		background-color: #ebeef0;
+	&-title-wrap
+		padding: 15px 30px;
+		background-color: #ffffff;
+		margin-bottom: 30px;
+	&__title
+		font: 16px 'Oswald', sans-serif;
+		color: $text;
+		text-transform uppercase;
+		display inline-block
+		vertical-align: top
+	&-floor
+		position: relative
+		display: inline-block
+		vertical-align: top
+		left: 100px;
+		&__title, &__item
+			border: 1px solid $elBorder;
+			padding: 5px 15px;
+			width: 100px;
+			font: 14px 'Oswald', sans-serif;
+			cursor pointer;
+			text-transform uppercase;
+			color: $text;
+			position: relative
+		&__title {
+			&:after {
+				content:'';
+				position: absolute;
+				right: 10px;
+				top: 14px;
+				display: block;
+				width:9px;
+				height: 5px;
+				background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAYAAACXU8ZrAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjA3QjlBMjUxOTQyODExRTU4NDM3Rjg1N0U1ODBFNzAzIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjA3QjlBMjUyOTQyODExRTU4NDM3Rjg1N0U1ODBFNzAzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDdCOUEyNEY5NDI4MTFFNTg0MzdGODU3RTU4MEU3MDMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDdCOUEyNTA5NDI4MTFFNTg0MzdGODU3RTU4MEU3MDMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5SSDOfAAAAdUlEQVR42mJMS0vbxsDA4AHEd4CYCYgZgfg/EP8DYmUgPsQCJOYCsSkQqzJggi9API/x////DOnp6U5AzkogFgHin0DMDlUQPXPmzE0g4xmAjH1AKg6IP0IVfAfiJJACBqgbGKAKtwOpbKgJRUD+apgcQIABAPaqIQCRg4EaAAAAAElFTkSuQmCC') left top no-repeat transparent;
+			}
+		}
+		&__item
+			border: none;
+			transition: all .3s;
+			&.active
+				background-color: $elHover ;
+				color: #ffffff;
+			&:hover
+				background-color: $elHover ;
+				color: #ffffff;
+
+
+		&-list
+			position: absolute;
+			border: 1px solid $elBorder;
+			background-color: #fff;
+			width: 100%;
+			box-sizing: border-box;
+			border-top: none;
+			max-height: 0;
+			transition: all .5s;
+			overflow hidden
+			&.opened
+				max-height: 70px;
+				transition all .5s;
+
 .clearfix:after
 	content:'';
 	display: block;
@@ -19,17 +85,20 @@ html, body
 	width: 440px;
 	height: 445px
 	box-sizing: border-box;
+	& img
+		float: left;
 	&__title
 		font: 25px 'Oswald', sans-serif;
 		color: #39C2D7;
+		margin-left: 120px;
 	&-contacts
 		padding: 10px;
-		margin:0;
+		margin:0 0 0 120px;
 		&__item
 			list-style-type:none;
 			padding: 3px 3px 3px 20px;
 			font: 14px 'Source Sans Pro', sans-serif;
-			color: #666;
+			color: $text;
 			position: relative;
 			&:before
 				content: "";

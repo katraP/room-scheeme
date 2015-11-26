@@ -49,7 +49,7 @@
 				duration: self.config.hoverDuration
 			});
 
-			parentObj.worker.clear();
+			parentObj.worker.clean();
 			parentObj.worker.init(o);
 			}, function(){
 				self.getNewStyle({

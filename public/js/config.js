@@ -7,7 +7,7 @@ var MAIN = {
 			room: {
 				fill: '#ffffff',
 				stroke:'#bbb',
-				hoverFill: '#bcc0c2',
+				hoverFill: '#bababa',
 				hoverOpacity: 1,
 				hoverDuration: 120
 			},
@@ -16,6 +16,7 @@ var MAIN = {
 				size: '20px',
 				hoverFill: "#ffffff"
 			}
-		}
+		},
+		currentFloor: 1
 	}
 }

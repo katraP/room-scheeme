@@ -9,7 +9,9 @@
 			mainContainer = document.querySelector('.main-wrap');
 		var container = document.createElement('div');
 		container.setAttribute('class', 'worker');
-
+		var image = document.createElement('img');
+		image.setAttribute('src', 'img/human.jpg');
+		container.appendChild(image);
 		var containerTitle = document.createElement('div');
 		containerTitle.setAttribute('class', 'worker__title');
 		containerTitle.innerHTML = workerData.name;
@@ -26,7 +28,7 @@
 		}
 		mainContainer.appendChild(container);
 	}
-	f.prototype.clear = function(){
+	f.prototype.clean = function(){
 		var mainContainer = document.querySelector('.main-wrap');
 		if(mainContainer.getElementsByClassName('worker')[0]){
 			mainContainer.removeChild(mainContainer.getElementsByClassName('worker')[0]);
