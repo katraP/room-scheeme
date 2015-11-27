@@ -32,7 +32,7 @@
 						this.classList.add('active');
 						self.renderTitle(widgetTitle, floor);
 						if(floor!= obj.config.currentFloor) {
-							ajaxCall(floor);
+							createArea(floor);
 							obj.worker.clean();
 							obj.config.currentFloor=floor;
 						}
@@ -59,6 +59,6 @@
 	}
 	var floorSelect = new f();
 	floorSelect.init({
-		numberOfFloor:2, parentContainer: '.main-title-wrap'
+		numberOfFloor: obj.config.totalNumberOfFloors, parentContainer: '.main-title-wrap'
 	});
 }(MAIN));

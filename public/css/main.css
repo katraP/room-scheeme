@@ -4,9 +4,20 @@ body {
   margin: 0;
   padding: 0;
 }
+.spinner-wrap {
+  position: absolute;
+  left: 0;
+  background-color: rgba(89,89,89,0.5);
+  width: 100%;
+  height: 445px;
+  text-align: center;
+}
+.spinner-loader {
+  position: relative;
+  top: 45%;
+}
 .main-wrap {
   padding: 50px;
-  box-sizing: border-box;
   background-color: #ebeef0;
 }
 .main-title-wrap {
@@ -77,6 +88,9 @@ body {
   max-height: 70px;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
+}
+.floor-wrap {
+  position: relative;
 }
 .clearfix:after {
   content: '';

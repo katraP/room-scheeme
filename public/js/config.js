@@ -17,6 +17,7 @@ var MAIN = {
 				hoverFill: "#ffffff"
 			}
 		},
-		currentFloor: 1
+		currentFloor: 1,
+		totalNumberOfFloors: 2
 	}
 }

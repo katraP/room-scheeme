@@ -7,10 +7,19 @@ $elBorder=#cccccc;
 html, body
 	margin:0;
 	padding:0;
+.spinner
+	&-wrap
+		position: absolute;
+		left:0;
+		background-color: rgba(89, 89, 89, 0.5);
+		width: 100%;
+		height: 445px;
+		text-align: center;
+	&-loader
+		position: relative;top: 45%;
 .main
 	&-wrap
 		padding: 50px;
-		box-sizing: border-box;
 		background-color: #ebeef0;
 	&-title-wrap
 		padding: 15px 30px;
@@ -72,7 +81,9 @@ html, body
 			&.opened
 				max-height: 70px;
 				transition all .5s;
-
+.floor
+	&-wrap
+		position relative
 .clearfix:after
 	content:'';
 	display: block;

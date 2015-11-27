@@ -6,7 +6,7 @@
 
 	f.prototype.init = function(o){
 		var workerData = o,
-			mainContainer = document.querySelector('.main-wrap');
+			mainContainer = document.querySelector('.floor-wrap');
 		var container = document.createElement('div');
 		container.setAttribute('class', 'worker');
 		var image = document.createElement('img');
@@ -29,7 +29,7 @@
 		mainContainer.appendChild(container);
 	}
 	f.prototype.clean = function(){
-		var mainContainer = document.querySelector('.main-wrap');
+		var mainContainer = document.querySelector('.floor-wrap');
 		if(mainContainer.getElementsByClassName('worker')[0]){
 			mainContainer.removeChild(mainContainer.getElementsByClassName('worker')[0]);
 		}
