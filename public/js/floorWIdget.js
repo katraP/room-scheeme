@@ -13,6 +13,15 @@
 				el.innerHTML= elHtml;
 			return el;
 		}
+		this.cleanSpace = function(floor){
+			obj.worker.clean();
+			obj.config.currentFloor=floor;
+		}
+		this.selectFloor = function(wrap,el){
+			console.log(el);
+			wrap.querySelector('.active').classList.remove('active');
+			el.classList.add('active');
+		}
 		this.render = function(widgetConfig, parentContainer){
 			var widgetContainer =this.buildElement({tag:'div', class:'main-floor'}),
 				widgetTitle = this.buildElement({tag:'div', class:'main-floor__title', html:'floor '+ obj.config.currentFloor}),
@@ -28,13 +37,11 @@
 				}
 				(function(floor){
 					widgetListItem.addEventListener('click', function(){
-						widgetSelectList.querySelector('.active').classList.remove('active');
-						this.classList.add('active');
+						self.selectFloor(widgetSelectList, this);
 						self.renderTitle(widgetTitle, floor);
 						if(floor!= obj.config.currentFloor) {
 							createArea(floor);
-							obj.worker.clean();
-							obj.config.currentFloor=floor;
+							self.cleanSpace(floor);
 						}
 					});
 				}(i));
@@ -57,8 +64,8 @@
 			el.innerHTML = 'Floor ' + floor;
 		}
 	}
-	var floorSelect = new f();
-	floorSelect.init({
+	obj.floorSelect = new f();
+	obj.floorSelect.init({
 		numberOfFloor: obj.config.totalNumberOfFloors, parentContainer: '.main-title-wrap'
 	});
 }(MAIN));

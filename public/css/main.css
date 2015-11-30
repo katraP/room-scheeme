@@ -89,6 +89,23 @@ body {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
+.main__floor-search {
+  position: relative;
+  left: 200px;
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  width: 90px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  font: 14px 'Oswald', sans-serif;
+  outlilne-color: transparent;
+  text-transform: uppercase;
+  color: #555;
+}
+.main__floor-search:focus {
+  width: 150px;
+  outlilne: none;
+}
 .floor-wrap {
   position: relative;
 }

@@ -31,7 +31,11 @@
 			container = document.querySelector('.floor-wrap');
 		container.removeChild(loaderContainer);
 	}
-	function createArea(floor) {
+	/**
+	 * function createArea - constructs floor based on input data;
+	 * @param floor - number of creating floor
+	 */
+	function createArea(floor, workplace) {
 		var createSpace = new MAIN.CreateSpace();
 		var floorObj = MAIN.cash.init(floor);
 		if(typeof floorObj !='object') {
@@ -42,6 +46,9 @@
 						var data = JSON.parse(response);
 						createSpace.init(data);
 						MAIN.cash.write(data)
+					}
+					else {
+						console.log('error');
 					}
 				});
 				removeLoader();

@@ -4,6 +4,7 @@
 $text=#555;
 $elHover = #bababa;
 $elBorder=#cccccc;
+$elFont = 14px 'Oswald', sans-serif;
 html, body
 	margin:0;
 	padding:0;
@@ -81,6 +82,22 @@ html, body
 			&.opened
 				max-height: 70px;
 				transition all .5s;
+	&__floor
+		&-search
+			position: relative
+			left: 200px
+			padding: 5px 15px;
+			border: 1px solid $elBorder;
+			width: 90px;
+			transition: all .3s
+			font: $elFont
+			outlilne-color: transparent;
+			text-transform uppercase
+			color: $text;
+			&:focus
+				width: 150px;
+				outlilne: none
+
 .floor
 	&-wrap
 		position relative

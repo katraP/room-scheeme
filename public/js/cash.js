@@ -19,7 +19,6 @@
 				var value = JSON.parse(localStorage['map']),
 						trigger=false;
 				for(var i=0; i< value.floor.length; i++) {
-					console.log(value.floor[i].id, floor);
 					if(value.floor[i].id == floor) {
 						trigger= true;
 						return value.floor[i];
