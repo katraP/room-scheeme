@@ -3,15 +3,22 @@
  */
 (function(o){
 	var f = function(){};
+	/**
+	 * Create worker layout
+	 * @param o
+	 */
 
 	f.prototype.init = function(o){
 		var workerData = o,
 			mainContainer = document.querySelector('.floor-wrap');
-		var container = document.createElement('div');
+
+		var container = document.createElement('div'); //todo thinking about using factory pattern
 		container.setAttribute('class', 'worker');
+
 		var image = document.createElement('img');
 		image.setAttribute('src', 'img/human.jpg');
 		container.appendChild(image);
+
 		var containerTitle = document.createElement('div');
 		containerTitle.setAttribute('class', 'worker__title');
 		containerTitle.innerHTML = workerData.name;
@@ -28,6 +35,10 @@
 		}
 		mainContainer.appendChild(container);
 	}
+
+	/**
+	 * Cleaning worker layout before initianing another one
+	 */
 	f.prototype.clean = function(){
 		var mainContainer = document.querySelector('.floor-wrap');
 		if(mainContainer.getElementsByClassName('worker')[0]){

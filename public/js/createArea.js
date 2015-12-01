@@ -31,14 +31,17 @@
 			container = document.querySelector('.floor-wrap');
 		container.removeChild(loaderContainer);
 	}
+
 	/**
 	 * function createArea - constructs floor based on input data;
 	 * @param floor - number of creating floor
 	 */
 	function createArea(floor, workplace) {
-		var createSpace = new MAIN.CreateSpace();
+		//floor creating
+		var createSpace = new MAIN.CreateFloor();
+		//cashing floor data
 		var floorObj = MAIN.cash.init(floor);
-		if(typeof floorObj !='object') {
+		if(typeof floorObj !='object') {  //todo make function that will check cashed data
 			addLoader();
 			setTimeout(function(){
 				loadJSON(floor, function(response){

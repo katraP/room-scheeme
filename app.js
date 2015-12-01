@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var bodyParser = require('body-parser');
+//var _ = require('lodash');
 var fs = require('fs');
 var app = express();
 app.use(bodyParser.json());
@@ -45,12 +46,25 @@ app.post('/', function(req, res){
 			}
 			else {
 				var resJson = JSON.parse(data);
-				resJson['floor'].forEach(function(element){
-					if(element['id']==reqJson['floor']){
-						res.setHeader('Content-Type', 'application/json');
-						res.send(JSON.stringify(element));
-					}
+
+				var responseWorkplaces = resJson['workers'].filter(function(el){
+					return el.id.split('.')[0] == reqJson.floor;
 				});
+				responseWorkplaces.forEach(function(el){
+					var roomId = el.id;
+					var roomInfo = resJson.rooms.filter(function(el){
+						return el.id==roomId;
+					});
+					delete roomInfo[0]['id'];
+					el.room = roomInfo[0];
+				});
+				var response = {
+					id: reqJson.floor,
+					workers: responseWorkplaces
+				}
+				console.log(response);
+					res.setHeader('Content-Type', 'application/json');
+					res.send(JSON.stringify(response));
 			}
 		});
 	}
