@@ -4,7 +4,7 @@
 (function(o){
 	o.CreateFloor = function(){};
 
-	o.CreateFloor.prototype.init = function(floor){
+	o.CreateFloor.prototype.init = function(floor, workplace){
 		var s=Snap('#room-space');
 
 		//Create floor
@@ -12,8 +12,7 @@
 		for(i; i< length; i++) {
 			var createRoom = new o.CreateRoom(),
 				currentData = floor.workers[i];
-
-			createRoom.init({
+			var configuration = {
 				room: {
 					path: currentData.room.path,
 					style: o.config.style.room
@@ -26,8 +25,16 @@
 				},
 				floor: floor.id,
 				space:s,
-				worker: currentData
-			});
+				worker: currentData,
+				markedWorkplace: workplace
+			}
+			if(workplace == configuration.roomNumber.text) {
+				configuration.isActive = true;
+				o.worker.clean();
+				o.worker.init(configuration.worker);
+			}
+			createRoom.init(configuration);
+
 		}
 	};
 }(MAIN));

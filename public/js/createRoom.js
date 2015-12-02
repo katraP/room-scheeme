@@ -24,6 +24,13 @@
 					cursor: 'pointer'}
 		).addClass('roomNumber');
 
+		//adding active class if we searched for worker
+
+		if(config.active) {
+			this.room.addClass('active');
+			this.roomNumber.addClass('active');
+		}
+
 		//getting the group of room parts
 		this.group = config.s.group( this.room, this.roomNumber);
 
@@ -79,7 +86,8 @@
 			 number : o.roomNumber.text,
 			 roomNumberStroke : o.roomNumber.style.stroke,
 			 roomNumberSize : o.roomNumber.style.size,
-			 hoverRoomNumber: o.roomNumber.style.hoverFill
+			 hoverRoomNumber: o.roomNumber.style.hoverFill,
+			 active: o.isActive
 		 }
 		return this.config;
 	}

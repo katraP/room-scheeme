@@ -41,13 +41,13 @@
 		var createSpace = new MAIN.CreateFloor();
 		//cashing floor data
 		var floorObj = MAIN.cash.init(floor);
-		if(typeof floorObj !='object') {  //todo make function that will check cashed data
+		if(typeof floorObj !='object') {  //todo create function that will check cashed data
 			addLoader();
 			setTimeout(function(){
 				loadJSON(floor, function(response){
 					if(typeof response == 'string') {
 						var data = JSON.parse(response);
-						createSpace.init(data);
+						createSpace.init(data, workplace);
 						MAIN.cash.write(data)
 					}
 					else {
@@ -58,6 +58,6 @@
 			}, 2000);
 		}
 		else {
-			createSpace.init(floorObj);
+			createSpace.init(floorObj, workplace);
 		}
 	}
