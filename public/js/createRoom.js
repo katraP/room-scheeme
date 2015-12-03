@@ -26,23 +26,23 @@
 
 		//adding active class if we searched for worker
 
-		if(config.active) {
-			this.room.addClass('active');
-			this.roomNumber.addClass('active');
-		}
 
 		//getting the group of room parts
 		this.group = config.s.group( this.room, this.roomNumber);
 
+		if(config.active) {
+			this.group.addClass('active');
+		}
 		//adding hover handler
-		this.roomHover(o.worker);
+		this.roomHover();
+		this.roomChoose(o.worker);
 	};
 
 	o.CreateRoom.prototype.getNewStyle = function(o){
 		o.obj.animate(o.styles, o.duration);
 	}
 
-	o.CreateRoom.prototype.roomHover = function(o){
+	o.CreateRoom.prototype.roomHover = function(){
 		var self = this;
 		self.group.hover(function(){
 				self.getNewStyle({
@@ -56,8 +56,6 @@
 				duration: self.config.hoverDuration
 			});
 
-			parentObj.worker.clean();
-			parentObj.worker.init(o);
 			}, function(){
 				self.getNewStyle({
 					obj: self.room,
@@ -70,6 +68,25 @@
 					duration: self.config.hoverDuration
 				});
 			})
+	}
+	o.CreateRoom.prototype.roomChoose = function(o){
+		var self = this;
+		self.group.click(function(){
+			var activeNode = this.parent().node.querySelectorAll('.active');
+			if(activeNode.length) {
+				[].forEach.call(activeNode,function(el){
+					el.classList.remove('active');
+				});
+				//for(var i=0; i< activeNode.length; i++) {
+				//	activeNode[i].classList.remove('active');
+				//}
+			}
+
+			self.group.addClass('active');
+
+			parentObj.worker.clean();
+			parentObj.worker.init(o);
+		})
 	}
 	o.CreateRoom.prototype.configure = function(o) {
 		 this.config = {

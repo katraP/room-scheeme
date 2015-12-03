@@ -3,6 +3,8 @@
  */
 (function(o){
 	var f = function(){
+		var self = this;
+		this.interval = null;
 		function ajaxCall(message,callback){
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', '/', true);
@@ -24,9 +26,11 @@
 				arr.forEach(function(el){
 					var item = document.createElement('li');
 					item.setAttribute('class', 'search-worker__item');
+					item.setAttribute('data-id', el.id);
 					item.innerHTML = el.name;
 					item.addEventListener('click', function(e){
 						createWorkerFloor(el.id);
+						self.clean(this);
 					});
 					list.appendChild(item);
 				});
@@ -58,6 +62,14 @@
 			o.floorSelect.cleanSpace(floor);
 			createArea(floor, workplace);
 		}
+		this.clean = function(el){
+			if(el.tagName=='input') {
+				el.value="";
+			}
+			else {
+				el.parentNode.parentNode.querySelector('.search-field').value="";
+			}
+		}
 		this.init = function(){
 			var self = this;
 			var wrap = document.createElement('div');
@@ -69,7 +81,6 @@
 				self.keyUp(e,this);
 			});
 			el.addEventListener('blur', function(e){
-				console.log(e.target);
 				var list = this.parentNode.getElementsByTagName('ul');
 				if(list.length) {
 					setTimeout(function(){
@@ -88,23 +99,38 @@
 		};
 		this.keyUp = function(e, el){
 			var inputValue = el.value;
+			clearTimeout(this.interval);
 			if(inputValue.length >2  ) {
-				ajaxCall(inputValue,  function(response){
-					if(typeof response == 'string') {
-						var data = JSON.parse(response);
-						if( e.keyCode==13) {
-							createWorkerFloor(data[0].id);
-						}
-						else {
-							deleteWorkerList(el);
-							var list = getWorkerList(data);
-							el.parentNode.appendChild(list);
-						}
+				if( e.keyCode==13) {
+					//clean layout for rendering new information
+
+					var list = el.parentNode.querySelector('ul');
+					if(list){
+						var workerData = list.firstChild.getAttribute('data-id');
+						//render new info
+						createWorkerFloor(workerData);
 					}
-					else {
-						console.log('error');
-					}
-				});
+
+					//clean searching info
+					deleteWorkerList(el);
+					self.clean(el);
+				}
+				else {
+					this.interval = setTimeout(function(){
+						ajaxCall(inputValue,  function(response){
+							if(typeof response == 'string') {
+								var data = JSON.parse(response);
+									deleteWorkerList(el);
+									var list = getWorkerList(data);
+									el.parentNode.appendChild(list);
+							}
+							else {
+								console.log('error');
+							}
+						});
+
+					}, 500);
+				}
 			}
 			else {
 				deleteWorkerList(el);

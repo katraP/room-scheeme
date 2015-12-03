@@ -41,23 +41,23 @@
 		var createSpace = new MAIN.CreateFloor();
 		//cashing floor data
 		var floorObj = MAIN.cash.init(floor);
-		if(typeof floorObj !='object') {  //todo create function that will check cashed data
-			addLoader();
-			setTimeout(function(){
-				loadJSON(floor, function(response){
-					if(typeof response == 'string') {
-						var data = JSON.parse(response);
-						createSpace.init(data, workplace);
-						MAIN.cash.write(data)
-					}
-					else {
-						console.log('error');
-					}
-				});
-				removeLoader();
-			}, 2000);
-		}
-		else {
+		//if(typeof floorObj !='object') {  //todo create function that will check cashed data
+		//	addLoader();
+		//	setTimeout(function(){
+		//		loadJSON(floor, function(response){
+		//			if(typeof response == 'string') {
+		//				var data = JSON.parse(response);
+		//				createSpace.init(data, workplace);
+		//				MAIN.cash.write(data)
+		//			}
+		//			else {
+		//				console.log('error');
+		//			}
+		//		});
+		//		removeLoader();
+		//	}, 2000);
+		//}
+		//else {
 			createSpace.init(floorObj, workplace);
-		}
+		//}
 	}

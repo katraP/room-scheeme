@@ -104,7 +104,6 @@ html, body
 	&-wrap
 		position: relative
 		left: 200px
-		width 92px
 		display: inline-block
 		vertical-align: top
 	&-field
@@ -189,10 +188,11 @@ html, body
 .room-space
 	width: 380px
 	height: 380px
-	.room.active
-		fill: $elHover
-	.roomNumber.active
-		fill: #ffffff;
+	.active
+		.room
+			fill: $elHover
+		.roomNumber
+			fill: #ffffff;
 .vector-wrap
 	float: left;
 	padding: 30px;

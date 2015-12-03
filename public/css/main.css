@@ -108,7 +108,6 @@ body {
 .search-wrap {
   position: relative;
   left: 200px;
-  width: 92px;
   display: inline-block;
   vertical-align: top;
 }
@@ -212,10 +211,10 @@ body {
   width: 380px;
   height: 380px;
 }
-.room-space .room.active {
+.room-space .active .room {
   fill: #bababa;
 }
-.room-space .roomNumber.active {
+.room-space .active .roomNumber {
   fill: #fff;
 }
 .vector-wrap {

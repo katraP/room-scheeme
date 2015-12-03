@@ -18,7 +18,6 @@
 			obj.config.currentFloor=floor;
 		}
 		this.selectFloor = function(wrap,el){
-			console.log(el);
 			wrap.querySelector('.active').classList.remove('active');
 			el.classList.add('active');
 		}

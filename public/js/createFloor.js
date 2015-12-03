@@ -7,6 +7,7 @@
 	o.CreateFloor.prototype.init = function(floor, workplace){
 		var s=Snap('#room-space');
 
+		this.cleanArea(s);
 		//Create floor
 		var i= 0, length = floor.workers.length;
 		for(i; i< length; i++) {
@@ -37,5 +38,8 @@
 
 		}
 	};
+	o.CreateFloor.prototype.cleanArea = function(area){
+		area.selectAll('g').remove();
+	}
 }(MAIN));
 
