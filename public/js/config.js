@@ -18,6 +18,10 @@ var MAIN = {
 			}
 		},
 		currentFloor: 1,
-		totalNumberOfFloors: 2
+		totalNumberOfFloors: 2,
+		floorWrap: '.floor-wrap',
+		widgetWrap: '.main-title-wrap',
+		floorDropdownWrap: 'main-floor',
+		searchWrap: 'search-worker'
 	}
 }

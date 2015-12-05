@@ -2,17 +2,16 @@
  * Created by Kateryna_Porkhun on 11/23/2015.
  */
 (function(o){
-	o.CreateFloor = function(){};
+	var f = function(){};
 
-	o.CreateFloor.prototype.init = function(floor, workplace){
+	f.prototype.init = function(floor, workplace){
 		var s=Snap('#room-space');
 
 		this.cleanArea(s);
 		//Create floor
-		var i= 0, length = floor.workers.length;
-		for(i; i< length; i++) {
-			var createRoom = new o.CreateRoom(),
-				currentData = floor.workers[i];
+		floor.workers.forEach(function(el){
+			var currentWorkplace = new o.workplace(),
+					currentData = el;
 			var configuration = {
 				room: {
 					path: currentData.room.path,
@@ -34,12 +33,12 @@
 				o.worker.clean();
 				o.worker.init(configuration.worker);
 			}
-			createRoom.init(configuration);
-
-		}
+			currentWorkplace.init(configuration);
+		});
 	};
-	o.CreateFloor.prototype.cleanArea = function(area){
+	f.prototype.cleanArea = function(area){
 		area.selectAll('g').remove();
 	}
+	o.floor = new f();
 }(MAIN));
 

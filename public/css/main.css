@@ -1,20 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro|Oswald");
-/*@keyframes appearance {*/
-/*0% {*/
-/*max-height:0;*/
-/*}*/
-/*100% {*/
-/*max-height: 250px;*/
-/*}*/
-/*}*/
-/*@-webkit-keyframes appearance {*/
-/*0% {*/
-/*max-height:0;*/
-/*}*/
-/*100% {*/
-/*max-height: 300px;*/
-/*}*/
-/*}*/
 html,
 body {
   margin: 0;
@@ -105,13 +89,13 @@ body {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-.search-wrap {
+.search-worker-wrap {
   position: relative;
   left: 200px;
   display: inline-block;
   vertical-align: top;
 }
-.search-field {
+.search-worker-field {
   padding: 5px 15px;
   border: 1px solid #ccc;
   -webkit-transition: all 0.3s;
@@ -122,7 +106,7 @@ body {
   color: #555;
   width: 150px;
 }
-.search-field:focus {
+.search-worker-field:focus {
   outline: none;
 }
 .search-worker-list {
@@ -146,6 +130,7 @@ body {
   list-style-type: none;
   font: 14px 'Oswald', sans-serif;
   text-transform: uppercase;
+  cursor: pointer;
 }
 .search-worker__item.active,
 .search-worker__item:hover {

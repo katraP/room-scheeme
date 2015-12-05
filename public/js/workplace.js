@@ -3,8 +3,8 @@
  */
 (function(o){
 	var parentObj = o;
-	o.CreateRoom = function(){};
-	o.CreateRoom.prototype.init = function(o){
+	var f = function(){};
+	f.prototype.init = function(o){
 
 		// getting configuration
 
@@ -38,11 +38,11 @@
 		this.roomChoose(o.worker);
 	};
 
-	o.CreateRoom.prototype.getNewStyle = function(o){
+	f.prototype.getNewStyle = function(o){
 		o.obj.animate(o.styles, o.duration);
 	}
 
-	o.CreateRoom.prototype.roomHover = function(){
+	f.prototype.roomHover = function(){
 		var self = this;
 		self.group.hover(function(){
 				self.getNewStyle({
@@ -69,7 +69,7 @@
 				});
 			})
 	}
-	o.CreateRoom.prototype.roomChoose = function(o){
+	f.prototype.roomChoose = function(o){
 		var self = this;
 		self.group.click(function(){
 			var activeNode = this.parent().node.querySelectorAll('.active');
@@ -77,9 +77,6 @@
 				[].forEach.call(activeNode,function(el){
 					el.classList.remove('active');
 				});
-				//for(var i=0; i< activeNode.length; i++) {
-				//	activeNode[i].classList.remove('active');
-				//}
 			}
 
 			self.group.addClass('active');
@@ -88,7 +85,7 @@
 			parentObj.worker.init(o);
 		})
 	}
-	o.CreateRoom.prototype.configure = function(o) {
+	f.prototype.configure = function(o) {
 		 this.config = {
 			 s : o.space,
 			 roomPath: o.room.path,
@@ -108,4 +105,6 @@
 		 }
 		return this.config;
 	}
+
+	o.workplace = f;
 }(MAIN));

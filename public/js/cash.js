@@ -18,15 +18,10 @@
 			if(localStorage['map']) {
 				var value = JSON.parse(localStorage['map']),
 						trigger=false;
-				for(var i=0; i< value.floor.length; i++) {
-					if(value.floor[i].id == floor) {
-						trigger= true;
-						return value.floor[i];
-					}
-				}
-				if(trigger==false){
-					return false;
-				}
+				var resultArr = value.floor.filter(function(el){
+					return el.id == floor;
+				});
+				return resultArr[0] || false ;
 			}
 			else {
 				return false;

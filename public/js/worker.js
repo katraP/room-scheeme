@@ -10,7 +10,7 @@
 
 	f.prototype.init = function(o){
 		var workerData = o,
-			mainContainer = document.querySelector('.floor-wrap');
+			mainContainer = document.querySelector(MAIN.config.floorWrap);
 
 		var container = document.createElement('div'); //todo thinking about using factory pattern
 		container.setAttribute('class', 'worker');
@@ -40,7 +40,7 @@
 	 * Cleaning worker layout before initianing another one
 	 */
 	f.prototype.clean = function(){
-		var mainContainer = document.querySelector('.floor-wrap');
+		var mainContainer = document.querySelector(MAIN.config.floorWrap);
 		if(mainContainer.getElementsByClassName('worker')[0]){
 			mainContainer.removeChild(mainContainer.getElementsByClassName('worker')[0]);
 		}

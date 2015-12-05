@@ -1,20 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Oswald');
-/*@keyframes appearance {*/
-	/*0% {*/
-		/*max-height:0;*/
-	/*}*/
-	/*100% {*/
-		/*max-height: 250px;*/
-	/*}*/
-/*}*/
-/*@-webkit-keyframes appearance {*/
-	/*0% {*/
-		/*max-height:0;*/
-	/*}*/
-	/*100% {*/
-		/*max-height: 300px;*/
-	/*}*/
-/*}*/
 
 
 
@@ -100,7 +84,7 @@ html, body
 				max-height: 70px;
 				transition all .5s;
 
-.search
+.search-worker
 	&-wrap
 		position: relative
 		left: 200px
@@ -117,29 +101,29 @@ html, body
 		width: 150px;
 		&:focus
 			outline: none;
-	&-worker
-		&-list
-			position absolute
-			left: 0
-			top 32px;
-			margin:0;
-			border: 1px solid $elBorder;
-			width: 180px;
-			padding:0;
-			background-color: #ffffff;
-			overflow:auto;
-			/*animation: appearance 1s;*/
-			/*-webkit-animation: appearance 1s;*/
-			&.--hide
-				display: none
-		&__item
-			padding: 7px 10px;
-			list-style-type: none
-			font: $elFont
-			text-transform: uppercase;
-			&.active, &:hover
-				background-color: $elBorder
-				color: #ffffff;
+	&-list
+		position absolute
+		left: 0
+		top 32px;
+		margin:0;
+		border: 1px solid $elBorder;
+		width: 180px;
+		padding:0;
+		background-color: #ffffff;
+		overflow:auto;
+		/*animation: appearance 1s;*/
+		/*-webkit-animation: appearance 1s;*/
+		&.--hide
+			display: none
+	&__item
+		padding: 7px 10px;
+		list-style-type: none
+		font: $elFont
+		text-transform: uppercase;
+		cursor:pointer;
+		&.active, &:hover
+			background-color: $elBorder
+			color: #ffffff;
 .floor
 	&-wrap
 		position relative

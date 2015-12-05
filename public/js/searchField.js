@@ -5,61 +5,62 @@
 	var f = function(){
 		var self = this;
 		this.interval = null;
-		function ajaxCall(message,callback){
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '/', true);
-			xhr.setRequestHeader('content-type', 'application/json; charset=utf-8');
-			var json = JSON.stringify({
-				input: message
-			});
-			xhr.onreadystatechange = function(){
-				if(this.status=='200' && this.readyState==4){
-					callback(this.responseText);
-				}
-			}
-			xhr.send(json);
-		}
 		function getWorkerList(arr){
-			var list = document.createElement('ul');
-			list.setAttribute('class', 'search-worker-list');
+			var list = buildElement({tag:'ul', class: MAIN.config.searchWrap + '-list'});
+
 			if(arr.length>0){
 				arr.forEach(function(el){
-					var item = document.createElement('li');
-					item.setAttribute('class', 'search-worker__item');
+					var item = buildElement({tag:'li', class: MAIN.config.searchWrap + '__item', html: el.name});
 					item.setAttribute('data-id', el.id);
-					item.innerHTML = el.name;
 					item.addEventListener('click', function(e){
+						debugger;
 						createWorkerFloor(el.id);
 						self.clean(this);
+						deleteWorkerList(this);
+
 					});
 					list.appendChild(item);
 				});
 			}
 			else {
-				var item = document.createElement('li');
-				item.setAttribute('class', 'search-worker__item');
-				item.innerHTML = 'No results for such request';
+				var item = buildElement({tag:'li', class: MAIN.config.searchWrap + '__item', html: 'No results for such request'});
 				list.appendChild(item);
 			}
 			return list;
 		}
 		function deleteWorkerList(el){
-			var parent = el.parentNode,
-				list = parent.getElementsByTagName('ul');
-			if(list.length!=0) {
-				parent.removeChild(list[0]);
+			var list, wrap;
+			if(el.tagName == 'LI') {
+				list = el.parentNode;
+				wrap = list.parentNode;
+				wrap.removeChild(list);
 			}
+			else {
+				wrap = el.parentNode;
+				if(wrap.querySelector('ul')){
+					list = wrap.querySelector('ul');
+					list.remove();
+				}
+			}
+
 		}
+
+		/**
+		 * return floor map and active worker workplace
+		 * @param data - worker floor and number of workplace
+		 */
 		function createWorkerFloor(data) {
 			var floor = data.split('.')[0],
 					workplace = data.split('.')[1],
-					floorWidget = document.querySelector('.main-floor'),
-					floorWidgetTitle = floorWidget.querySelector('.main-floor__title'),
-					floorWidgetList = floorWidget.querySelector('.main-floor-list'),
+					floorWidget = document.querySelector('.'+ MAIN.config.floorDropdownWrap),
+					floorWidgetTitle = floorWidget.querySelector('.'+MAIN.config.floorDropdownWrap+'__title'),
+					floorWidgetList = floorWidget.querySelector('.'+ MAIN.config.floorDropdownWrap+'-list'),
 					actFloor = floorWidgetList.getElementsByTagName('div');
 			o.floorSelect.renderTitle(floorWidgetTitle, floor);
 			o.floorSelect.selectFloor(floorWidgetList, actFloor[(floor-1)]);
-			o.floorSelect.cleanSpace(floor);
+			o.worker.clean();
+			o.config.currentFloor=floor;
+
 			createArea(floor, workplace);
 		}
 		this.clean = function(el){
@@ -67,26 +68,25 @@
 				el.value="";
 			}
 			else {
-				el.parentNode.parentNode.querySelector('.search-field').value="";
+				el.parentNode.parentNode.querySelector('.'+ MAIN.config.searchWrap + '-field').value="";
 			}
 		}
 		this.init = function(){
 			var self = this;
-			var wrap = document.createElement('div');
-			wrap.setAttribute('class', 'search-wrap');
-			var el = document.createElement('input');
-			el.setAttribute('class','search-field');
+			var wrap = buildElement({tag:'div', class: MAIN.config.searchWrap + '-wrap'});
+			var el = buildElement({tag:'input', class: MAIN.config.searchWrap + '-field'});
 			el.setAttribute('placeholder', 'Enter the name');
 			el.addEventListener('keyup', function(e){
-				self.keyUp(e,this);
+				self.getWorkerList(e,this);
 			});
 			el.addEventListener('blur', function(e){
 				var list = this.parentNode.getElementsByTagName('ul');
-				if(list.length) {
-					setTimeout(function(){
+				setTimeout(function(){
+					if(list.length) {
 						list[0].classList.add('--hide');
-					}, 200)
-				}
+					}
+				}, 200)
+
 			});
 			el.addEventListener('focus', function(){
 				var list = this.parentNode.getElementsByTagName('ul');
@@ -95,29 +95,35 @@
 				}
 			});
 			wrap.appendChild(el);
-			document.querySelector('.main-title-wrap').appendChild(wrap);
+			document.querySelector(MAIN.config.widgetWrap).appendChild(wrap);
 		};
-		this.keyUp = function(e, el){
+
+		/**
+		 * getting workers from server
+		 * @param e - event object
+		 * @param el - context of calling
+		 */
+		this.getWorkerList = function(e, el){
 			var inputValue = el.value;
-			clearTimeout(this.interval);
+			clearTimeout(this.interval); // if user prints quickly, don't perform ajax call
 			if(inputValue.length >2  ) {
 				if( e.keyCode==13) {
-					//clean layout for rendering new information
 
 					var list = el.parentNode.querySelector('ul');
-					if(list){
+					if(list){ // if worker list not empty, show info for first user in the list
 						var workerData = list.firstChild.getAttribute('data-id');
 						//render new info
 						createWorkerFloor(workerData);
 					}
 
-					//clean searching info
+					//clean worker suggest
 					deleteWorkerList(el);
+					//clean input value;
 					self.clean(el);
 				}
 				else {
 					this.interval = setTimeout(function(){
-						ajaxCall(inputValue,  function(response){
+						ajaxCall({input: inputValue},  function(response){
 							if(typeof response == 'string') {
 								var data = JSON.parse(response);
 									deleteWorkerList(el);
